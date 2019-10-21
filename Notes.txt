@@ -26,5 +26,13 @@
 
 	 public DateTime? DatePublished { get; set; } // optional field with ?. Will be null if no value
 7. Add nuget packages
-
-
+	microsoft.AspnetCore.All
+8. Add connection string 
+	public static IConfiguration Configuration { get; set; } in Startup.cs
+	// create connection string in JSON Format and will be used in appsettings.json
+        var connectionString = Configuration["connectionStrings:bookDBConnectionString"];
+	AppSettings.JSON
+	"connectionStrings": {
+    		"bookDbConnectionString":  "Server=(localdb)\\mssqllocaldb;Database=BookApiProject;Trusted_Connection=True;"
+  	}
+9. Tell EF what classes are to be used for the framework using DBContext
