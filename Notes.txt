@@ -35,4 +35,20 @@
 	"connectionStrings": {
     		"bookDbConnectionString":  "Server=(localdb)\\mssqllocaldb;Database=BookApiProject;Trusted_Connection=True;"
   	}
-9. Tell EF what classes are to be used for the framework using DBContext
+9. Tell EF what classes are to be used for the framework using DBContext in BookDbContext.cs
+	DbContext - how our app communicates with the db
+
+	public class BookDbContext : DbContext
+	public BookDbContext(DbContextOptions<DbContext> options)
+            : base(options)
+        {
+
+        }
+
+	Inherits from DbContextIptions the brings options down to base level (BookDbContext)
+
+	Create the Migrations - allow any changes done from code side to be migrated to db
+		Database.Migrate(); 
+10. Setup Many to Many relationships with OnModelCreating in BookDbContext.cs
+	
+   		
