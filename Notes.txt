@@ -1,0 +1,20 @@
+1. Create empty project with Core 2.2
+2. Configure to use MVC in the ConfigureServices method in Startup.cs
+	Then add to pipeline in Configure()
+3. Create Models without relatinship properties 
+4. Create Entity Relationships by adding relationship properties to Entities
+	Use Navigational Properties
+	One to Many
+		One - Single Entity
+		Many - Collection - > ICollection
+	virtual - Creates a proxy class at runtime
+	Lazy loading - allows to interact with the ones we need
+5. Many To Many
+	Create intermediary table
+		BookAuthor table 
+			BookdId
+			Book book - to link the class to the id prop
+			AuthorId
+			Author author
+	BookAuthor will be a collection in the Book and Author entities
+
