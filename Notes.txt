@@ -50,5 +50,17 @@
 	Create the Migrations - allow any changes done from code side to be migrated to db
 		Database.Migrate(); 
 10. Setup Many to Many relationships with OnModelCreating in BookDbContext.cs
+11. Add BookDbContext to Startup class
+	// add the BookDbContext and specify server using the connection string
+            services.AddDbContext<BookDbContext>(c => c.UseSqlServer(connectionString));
+12. Create Database(Add Migrations) 
+	Tools -> Package Manager Console
+	"add-migration InitialDatabaseCreation" // create migration
+	"update-database" // create database tables
+
+13. Seed Data
+	DbSeed.cs
+	Call SeedDataContext in the startup.cs in the Configure method
+	context.SeedDataContext();
 	
    		

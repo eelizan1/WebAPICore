@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookApiProject.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,10 +29,12 @@ namespace BookApiProject
             services.AddMvc();
             // create connection string in JSON Format and will be used in appsettings.json
             var connectionString = Configuration["connectionStrings:bookDbConnectionString"];
+            // add the BookDbContext and specify server using the connection string
+            services.AddDbContext<BookDbContext>(c => c.UseSqlServer(connectionString));
         }
 
         // Middleware, interfaces, database services will be registered here
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, BookDbContext context)
         {
             // development mode
             if (env.IsDevelopment())
@@ -38,10 +42,8 @@ namespace BookApiProject
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            // run seed data class 
+            context.SeedDataContext();
 
             // add MVC to the request execution pipline
             app.UseMvc(); 

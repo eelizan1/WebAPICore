@@ -9,11 +9,11 @@ namespace BookApiProject.Services
 {
     public class BookDbContext : DbContext
     {
-        public BookDbContext(DbContextOptions<DbContext> options)
+        public BookDbContext(DbContextOptions<BookDbContext> options)
             : base(options)
         {
             //Create the Migrations - allow any changes done from code side to be migrated to db
-            Database.Migrate(); 
+            Database.Migrate();
         }
 
         //Creates tables from models
@@ -27,7 +27,7 @@ namespace BookApiProject.Services
         public virtual DbSet<BookCategory> BookCategories { get; set; }
 
         // create the many to many relationships
-        protected override void OnModelCreating (ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Many to Many in the BookCategories
 
@@ -41,10 +41,23 @@ namespace BookApiProject.Services
                 .HasForeignKey(b => b.BookId); // and foreign key is the BookId
             // establish relationship from point of Categories
             modelBuilder.Entity<BookCategory>() // in BookCategory
-                .HasOne(c => c.Category) // we have one book 
-                .WithMany(bc => bc.BookCategories) // with many categories
+                .HasOne(c => c.Category) // we have one category 
+                .WithMany(bc => bc.BookCategories) // with many books
                 .HasForeignKey(c => c.CategoryId); // and foreign key is the BookId
-        }
 
+            // Many to Many in the BookAuthor
+            modelBuilder.Entity<BookAuthor>()
+                .HasKey(ba => new { ba.BookId, ba.AuthorId });
+            modelBuilder.Entity<BookAuthor>() // in BookAuthor
+               .HasOne(b => b.Book) // we have one book 
+               .WithMany(ba => ba.BookAuthors) // with many Authors
+               .HasForeignKey(b => b.BookId); // and foreign key is the BookId
+            // establish relationship from point of Authors
+            modelBuilder.Entity<BookAuthor>() // in BookCategory
+                .HasOne(a => a.Author) // we have one Author 
+                .WithMany(ba => ba.BookAuthors) // with many Books
+                .HasForeignKey(a => a.AuthorId); // and foreign key is the BookId
+
+        }
     }
 }
