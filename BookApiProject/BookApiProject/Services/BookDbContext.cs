@@ -25,6 +25,7 @@ namespace BookApiProject.Services
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<BookAuthor> BookAuthors { get; set; }
         public virtual DbSet<BookCategory> BookCategories { get; set; }
+        public virtual DbSet<JsonObject> JsonObjects { get; set; }
 
         // create the many to many relationships
         protected override void OnModelCreating(ModelBuilder modelBuilder)

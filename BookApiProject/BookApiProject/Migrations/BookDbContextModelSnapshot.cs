@@ -119,6 +119,19 @@ namespace BookApiProject.Migrations
                     b.ToTable("Countries");
                 });
 
+            modelBuilder.Entity("BookApiProject.Models.JsonObject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("JsonString");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JsonObjects");
+                });
+
             modelBuilder.Entity("BookApiProject.Models.Review", b =>
                 {
                     b.Property<int>("Id")

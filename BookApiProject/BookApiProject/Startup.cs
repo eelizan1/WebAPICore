@@ -43,7 +43,7 @@ namespace BookApiProject
             }
 
             // run seed data class 
-            context.SeedDataContext();
+            // context.SeedDataContext();
 
             // add MVC to the request execution pipline
             app.UseMvc(); 
